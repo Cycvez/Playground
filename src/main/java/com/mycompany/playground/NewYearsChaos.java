@@ -5,31 +5,49 @@
  */
 package com.mycompany.playground;
 
-import java.util.Arrays;
-
 /**
  *
  * @author carlo
  */
+// have to execute faster and not use double for loops
 public class NewYearsChaos {
 
     static void minimumBribes(int[] q) {
         int size = q.length;
         int[] original = new int[size];
-        int[] temp= new int [size];
-        int count=0;
+
+        int count = 0;
         for (int i = 0; i < size; i++) {
             original[i] = i + 1;
         }
-        while(original!=q){
-            
+
+        for (int i = 0; i < q.length; i++) {
+            if (q[i] - original[i] > 2) {
+                System.out.println("Too chaotic");
+                return;
+            }
         }
-        System.out.println(Arrays.toString(original));
+
+        for (int i = size - 1; i > 0; i--) {
+            for (int j = 0; j < size - 1; j++) {
+                if (original[i] == q[j] && i != j) {
+                    int stored = q[j];
+                    q[j] = q[j + 1];
+                    q[j + 1] = stored;
+
+                    count++;
+                }
+            }
+        }
+        System.out.println(count);
+
     }
 
+
     public static void main(String[] args) {
-        int[] q = {5, 3, 2, 1, 4};
+        int[] q = {2, 4, 5, 8, 6, 3, 7, 1};
         minimumBribes(q);
+
     }
 
 }
